@@ -70,4 +70,6 @@ echo "creating configuration"
 cp /etc/bind/db.127 /etc/bind/db.$first_octet 
 
 #copy forward file into forwardfile_temp
-cp /etc/bind/db.local ${forward}_temp &&  sed -i 's/localhost/${domain}/g s/127.0.0.1/${ip_add}/g' ${forward}_temp &&  mv ${forward}_temp ${forward}
+cp /etc/bind/db.local ${forward}_temp && \
+sed -i 's/localhost/${domain//./\\.}/g; s/127.0.0.1/${ip_add}/g' ${forward}_temp && \
+mv ${forward}_temp ${forward}
