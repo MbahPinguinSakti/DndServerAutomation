@@ -39,7 +39,7 @@ echo "cheking bind9 service"
 #cheking bind9.service
 if [ ! -f /lib/systemd/system/named.service; ]; then
     echo "bind9 doesnt exist, installing bind9"
-    apt update
+    apt updategi
     apt upgrade
     apt install bind9 -y
 else
