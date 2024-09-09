@@ -1,3 +1,7 @@
+![image](https://github.com/MbahPinguinSakti/DndServerAutomation/blob/main/img.png)
+
+
+
 # 🚀Auto DNS
 Skrip Bash yang ampuh ini akan membantu Anda mengatur dan mengkonfigurasi Bind9 DNS server di sistem Linux Anda dengan cepat dan efisien.
 
