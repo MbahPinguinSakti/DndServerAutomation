@@ -1,4 +1,4 @@
-![image](https://github.com/MbahPinguinSakti/DndServerAutomation/blob/main/img.png)
+![image](https://github.com/MbahPinguinSakti/DndServerAutomation/blob/main/image.png)
 
 
 
