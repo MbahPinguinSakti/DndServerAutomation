@@ -121,7 +121,6 @@ sleep 1
 new_soa="@       IN      SOA     ${domain}. root.${domain}. ("
 
 cp /etc/bind/db.127 ${reverse}_temp && \
-    sed -i "s/SOA/c\$new_soa/g" ${reverse}_temp && \
     sed -i "s/localhost/${domain}" ${reverse}_temp && \
     mv ${reverse}_temp ${reverse}
 
