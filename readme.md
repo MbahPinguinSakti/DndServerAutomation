@@ -2,10 +2,10 @@
 Skrip Bash yang ampuh ini akan membantu Anda mengatur dan mengkonfigurasi Bind9 DNS server di sistem Linux Anda dengan cepat dan efisien.
 
 ## ✨Fitur Utama
-Instalasi Otomatis: Jika Bind9 belum terinstal, jangan khawatir! Skrip ini akan menanganinya untuk Anda.
-Backup Aman: Skrip ini akan membuat salinan cadangan file konfigurasi Anda, sehingga Anda dapat kembali ke pengaturan sebelumnya jika diperlukan.
-Konfigurasi Zona: Cukup masukkan nama domain dan alamat IP Anda, dan skrip ini akan menangani konfigurasi zona forward dan reverse untuk Anda.
-Restart Otomatis: Setelah konfigurasi selesai, Bind9 akan dimulai ulang secara otomatis untuk menerapkan perubahan.
+Instalasi Otomatis: Skrip akan menginstal Bind9 jika diperlukan
+Backup Aman:        Skrip akan mencadangkan konfigurasi Anda.
+Konfigurasi Zona:   Masukkan domain & IP, skrip akan mengkonfigurasi zona.
+Restart Otomatis:   Bind9 akan direstart setelah konfigurasi selesai.
 ## 🛠️Cara Instalasi & Penggunaan
 Akses Root: Pastikan Anda memiliki hak akses root.
 clone : 
