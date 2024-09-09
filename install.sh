@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e  
+set -e
 # Root Checker
 if [ "$(id -u)" -ne 0 ]; then
     echo "This script must be run as root. Please use 'sudo' or log in as root."
@@ -89,7 +89,7 @@ octets=("${octets[0]}" "${octets[1]}" "${octets[2]}")
 # Balikkan urutan oktet
 reversed_octets=("${octets[2]}" "${octets[1]}" "${octets[0]}")
 # Gabungkan oktet yang dibalik dengan titik
-reversed_ip="${reversed_octets[0]}.${reversed_octets[1]}.${reversed_octets[2]}" 
+reversed_ip="${reversed_octets[0]}.${reversed_octets[1]}.${reversed_octets[2]}"
 
 echo "$reversed_ip"
 
@@ -117,12 +117,37 @@ echo "${reverse} zone has been sucess fully configured"
 
 named="/etc/bind/named.conf.default-zones"
 
-cp ${named} ${named}_temp && \
-    sed -i "s/localhost/${domain}/g" "${named}_temp" && \
-    sed -i "s/127/${reversed_ip}/g" "${named}_temp" && \
-    sed -i "s/db.local/db.${domain}/g" "${named}_temp" && \
-    sed -i "s/db.127/db.${first_octet}" "${named}_temp" && \
-    mv ${named}_temp ${named}
+cp ${named} ${named}_temp
+ 
+sed -i "s/localhost/${domain}/g" "${named}_temp"
+    if [ $? -ne 0 ]; then
+        echo "error di sed-1"
+    else
+        echo "sed done "
+    fi
 
-# 
-echo "Proses berhasil"
+sed -i "s/127/${reversed_ip}/g" "${named}_temp"
+    if [ $? -ne 0 ]; then
+        echo "error di sed-1"
+    else
+        echo "sed done "
+    fi
+
+sed -i "s/db.local/db.${domain}/g" "${named}_temp"
+    if [ $? -ne 0 ]; then
+        echo "error di sed-1"
+    else
+        echo "sed done "
+    fi
+
+sed -i "s/db.127/db.${first_octet}/g" "${named}_temp"
+    if [ $? -ne 0 ]; then
+        echo "error di sed-1"
+    else
+        echo "sed done "
+    fi
+
+mv ${named}_temp ${named}
+
+#
+echo "process sucessfully"
