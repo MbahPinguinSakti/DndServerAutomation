@@ -48,16 +48,6 @@ echo -e "${hijau}╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚�
 echo ""
 
 # Pisahkan IP menjadi oktet
-octets=(${ip//./ })
-
-# Hapus oktet keempat
-octets=("${octets[0]}" "${octets[1]}" "${octets[2]}")
-
-# Balikkan urutan oktet
-reversed_octets=("${octets[2]}" "${octets[1]}" "${octets[0]}")
-
-# Gabungkan oktet yang dibalik dengan titik
-reversed_ip="${reversed_octets[0]}.${reversed_octets[1]}.${reversed_octets[2]}"   echo "$reversed_ip"
 
 echo "cheking bind9 service"
 #cheking bind9.service
@@ -92,9 +82,16 @@ sleep 1
 #asking for ip address
 read -p "enter your ip address: " ip_add
 echo "creating configuration"
+octets=(${ip_add//./ })
 
-balik_ip "${ip_add}"
+# Hapus oktet keempat
+octets=("${octets[0]}" "${octets[1]}" "${octets[2]}")
 
+# Balikkan urutan oktet
+reversed_octets=("${octets[2]}" "${octets[1]}" "${octets[0]}")
+
+# Gabungkan oktet yang dibalik dengan titik
+reversed_ip="${reversed_octets[0]}.${reversed_octets[1]}.${reversed_octets[2]}"   echo "$reversed_ip"
 sleep 1
 
 #manip records forwardZ file
