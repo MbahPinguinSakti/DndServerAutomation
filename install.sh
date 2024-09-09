@@ -46,7 +46,7 @@ echo -e "${hijau}███████║██║   ██║   ██║   █
 echo -e "${hijau}██╔══██║██║   ██║   ██║   ██║   ██║    ██║  ██║██║╚██╗██║╚════██║${end}"
 echo -e "${hijau}██║  ██║╚██████╔╝   ██║   ╚██████╔╝    ██████╔╝██║ ╚████║███████║${end}"
 echo -e "${hijau}╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝     ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ${end}"
-echo -e "by EdWArd"
+echo -e "${hijau} by EdWArd ${end}"
 echo ""
 
 # Pisahkan IP menjadi oktet
@@ -152,3 +152,10 @@ mv ${named}_temp ${named}
 
 #
 echo "process sucessfully"
+sleep 0.5
+
+echo "restarting bind9 service.."
+sleep 0.2
+
+systemctl restart bind9.service
+
