@@ -48,22 +48,21 @@ echo -e "${hijau}╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚�
 echo ""
 
 balik_ip() {
-  # Pisahkan IP menjadi oktet
-  local octets=(${1//./ })
+    # Pisahkan IP menjadi oktet
+    local octets=(${1//./ })
 
-  # Hapus oktet keempat
-  octets=("${octets[0]}" "${octets[1]}" "${octets[2]}")
+    # Hapus oktet keempat
+    octets=("${octets[0]}" "${octets[1]}" "${octets[2]}")
 
-  # Balikkan urutan oktet
-  local reversed_octets=("${octets[2]}" "${octets[1]}" "${octets[0]}")
+    # Balikkan urutan oktet
+    local reversed_octets=("${octets[2]}" "${octets[1]}" "${octets[0]}")
 
-  # Gabungkan oktet yang dibalik dengan titik
-  local reversed_ip="${reversed_octets[0]}.${reversed_octets[1]}.${reversed_octets[2]}"
+    # Gabungkan oktet yang dibalik dengan titik
+    local reversed_ip="${reversed_octets[0]}.${reversed_octets[1]}.${reversed_octets[2]}"
 
-  # Cetak hasilnya
-#   echo "$reversed_ip"
+    # Cetak hasilnya
+    #   echo "$reversed_ip"
 }
-
 
 echo "cheking bind9 service"
 #cheking bind9.service
@@ -101,17 +100,16 @@ echo "creating configuration"
 
 balik_ip "${ip_add}"
 
-
 sleep 1
 
 #manip records forwardZ file
 cp /etc/bind/db.127 /etc/bind/db.$first_octet
 
 #copy forward file into forwardfile_temp
-cp /etc/bind/db.local ${forward}_temp && \
-    sed -i "s/localhost/${domain}/g" ${forward}_temp && \
-    sed -i "s/127.0.0.1/${ip_add}/g" ${forward}_temp && \
-    sed -i "/AAA/d" ${forward}_temp && \
+cp /etc/bind/db.local ${forward}_temp &&
+    sed -i "s/localhost/${domain}/g" ${forward}_temp &&
+    sed -i "s/127.0.0.1/${ip_add}/g" ${forward}_temp &&
+    sed -i "/AAA/d" ${forward}_temp &&
     mv ${forward}_temp ${forward}
 
 echo "${forward} zone has been sucess fully configured"
@@ -120,16 +118,17 @@ sleep 1
 
 new_soa="@       IN      SOA     ${domain}. root.${domain}. ("
 
-cp /etc/bind/db.127 ${reverse}_temp && \
-    sed -i "s/localhost/${domain}" ${reverse}_temp && \
+cp /etc/bind/db.127 ${reverse}_temp &&
+    sed -i "s/localhost/${domain}/g" ${reverse}_temp &&
     mv ${reverse}_temp ${reverse}
 
 echo "${reverse} zone has been sucess fully configured"
 
-cp /etc/bind/named.conf.default-zones /etc/bind/named.conf.default-zones_temp && \
-    sed -i "s/localhost/${domain}/g" /etc/bind/named.conf.default-zones_temp && \
-    sed -i "s/local/db.${domain}/g" /etc/bind/named.conf.default-zones_temp && \
-    sed -i "s/127/${reversed_ip}/g" /etc/bind/named.conf.default-zones_temp && \
-    sed -i "s/db.127db.${reverse}/g" /etc/bind/named.conf.default-zones_temp && \
+cp /etc/bind/named.conf.default-zones /etc/bind/named.conf.default-zones_temp &&
+    sed -i "s/localhost/${domain}/g" /etc/bind/named.conf.default-zones_temp &&
+    sed -i "s/local/db.${domain}/g" /etc/bind/named.conf.default-zones_temp &&
+    sed -i "s/127/${reversed_ip}/g" /etc/bind/named.conf.default-zones_temp &&
+    sed -i "s/db.127db.${reverse}/g" /etc/bind/named.conf.default-zones_temp &&
+    mv /etc/bind/named.conf.default-zones_temp /etc/bind/named.conf.default-zones
 
 # Fungsi untuk membalikkan urutan IP dan menghapus oktet keempat
