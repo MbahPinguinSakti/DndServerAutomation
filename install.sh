@@ -47,22 +47,16 @@ echo -e "${hijau}██║  ██║╚██████╔╝   ██║   �
 echo -e "${hijau}╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝     ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ${end}"
 echo ""
 
-balik_ip() {
-    # Pisahkan IP menjadi oktet
-    local octets=(${1//./ })
-
-    # Hapus oktet keempat
-    octets=("${octets[0]}" "${octets[1]}" "${octets[2]}")
-
-    # Balikkan urutan oktet
-    local reversed_octets=("${octets[2]}" "${octets[1]}" "${octets[0]}")
-
-    # Gabungkan oktet yang dibalik dengan titik
-    local reversed_ip="${reversed_octets[0]}.${reversed_octets[1]}.${reversed_octets[2]}"
-
-    # Cetak hasilnya
-    #   echo "$reversed_ip"
-}
+# Pisahkan IP menjadi oktet
+local octets=(${ip_add//./ })
+# Hapus oktet keempat
+octets=("${octets[0]}" "${octets[1]}" "${octets[2]}")
+# Balikkan urutan oktet
+local reversed_octets=("${octets[2]}" "${octets[1]}" "${octets[0]}")
+# Gabungkan oktet yang dibalik dengan titik
+local reversed_ip="${reversed_octets[0]}.${reversed_octets[1]}.${reversed_octets[2]}"
+# Cetak hasilnya
+#   echo "$reversed_ip"
 
 echo "cheking bind9 service"
 #cheking bind9.service
@@ -116,85 +110,84 @@ echo "${forward} zone has been sucess fully configured"
 
 sleep 1
 
-cp /etc/bind/db.127 ${reverse}_temp && \
+cp /etc/bind/db.127 ${reverse}_temp &&
     sed -i "s/localhost/${domain}/g" ${reverse}_temp &&
     mv ${reverse}_temp ${reverse}
 
 echo "${reverse} zone has been sucess fully configured"
 
-# cp /etc/bind/named.conf.default-zones /etc/bind/named.conf.default-zones_temp &&  
+# cp /etc/bind/named.conf.default-zones /etc/bind/named.conf.default-zones_temp &&
 #     sed -i "s/localhost/${domain}/g" /etc/bind/named.conf.default-zones_temp && \
 #     sed -i "s/local/ db.${domain}/g" /etc/bind/named.conf.default-zones_temp && \
 #     sed -i "s/127/${reversed_ip}/g" /etc/bind/named.conf.default-zones_temp && \
 #     sed -i "s/db.127/db.${reverse}/g" /etc/bind/named.conf.default-zones_temp && \
 #     mv /etc/bind/named.conf.default-zones_temp /etc/bind/named.conf.default-zones
 
-
 #!/bin/bash
 
 # Cek apakah variabel domain dan reversed_ip sudah didefinisikan
 if [ -z "$domain" ]; then
-  echo "Variabel domain tidak didefinisikan"
-  exit 1
+    echo "Variabel domain tidak didefinisikan"
+    exit 1
 fi
 
 if [ -z "$reversed_ip" ]; then
-  echo "Variabel reversed_ip tidak didefinisikan"
-  exit 1
+    echo "Variabel reversed_ip tidak didefinisikan"
+    exit 1
 fi
 
 # Cek apakah file /etc/bind/named.conf.default-zones ada dan dapat diakses
 if [ ! -f "/etc/bind/named.conf.default-zones" ]; then
-  echo "File /etc/bind/named.conf.default-zones tidak ada"
-  exit 1
+    echo "File /etc/bind/named.conf.default-zones tidak ada"
+    exit 1
 fi
 
 if [ ! -r "/etc/bind/named.conf.default-zones" ]; then
-  echo "File /etc/bind/named.conf.default-zones tidak dapat diakses"
-  exit 1
+    echo "File /etc/bind/named.conf.default-zones tidak dapat diakses"
+    exit 1
 fi
 
 # Cek apakah Anda memiliki hak akses yang cukup untuk menulis file /etc/bind/named.conf.default-zones
 if [ ! -w "/etc/bind/named.conf.default-zones" ]; then
-  echo "Anda tidak memiliki hak akses yang cukup untuk menulis file /etc/bind/named.conf.default-zones"
-  exit 1
+    echo "Anda tidak memiliki hak akses yang cukup untuk menulis file /etc/bind/named.conf.default-zones"
+    exit 1
 fi
 
 # Jalankan perintah cp dan sed
 cp /etc/bind/named.conf.default-zones /etc/bind/named.conf.default-zones_temp
 if [ $? -ne 0 ]; then
-  echo "Gagal melakukan perintah cp"
-  exit 1
+    echo "Gagal melakukan perintah cp"
+    exit 1
 fi
 
 sed -i "s/localhost/${domain}/g" /etc/bind/named.conf.default-zones_temp
 if [ $? -ne 0 ]; then
-  echo "Gagal melakukan perintah sed 1"
-  exit 1
+    echo "Gagal melakukan perintah sed 1"
+    exit 1
 fi
 
 sed -i "s/local/ db.${domain}/g" /etc/bind/named.conf.default-zones_temp
 if [ $? -ne 0 ]; then
-  echo "Gagal melakukan perintah sed 2"
-  exit 1
+    echo "Gagal melakukan perintah sed 2"
+    exit 1
 fi
 
 sed -i "s/127/${reversed_ip}/g" /etc/bind/named.conf.default-zones_temp
 if [ $? -ne 0 ]; then
-  echo "Gagal melakukan perintah sed 3"
-  exit 1
+    echo "Gagal melakukan perintah sed 3"
+    exit 1
 fi
 
-sed -i "s/db.127/db.${reversed_ip}/g" /etc/bind/named.conf.default-zones_temp
+sed -i "s/db.127/db.${reverse}/g" /etc/bind/named.conf.default-zones_temp
 if [ $? -ne 0 ]; then
-  echo "Gagal melakukan perintah sed 4"
-  exit 1
+    echo "Gagal melakukan perintah sed 4"
+    exit 1
 fi
 
 mv /etc/bind/named.conf.default-zones_temp /etc/bind/named.conf.default-zones
 if [ $? -ne 0 ]; then
-  echo "Gagal melakukan perintah mv"
-  exit 1
+    echo "Gagal melakukan perintah mv"
+    exit 1
 fi
 
 echo "Proses berhasil"
