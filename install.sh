@@ -31,9 +31,21 @@ while true; do
         echo "internet ERR: not connected"
         sleep 0.5
         break
-        # exit 1
+        clear
     fi
 done
+
+hijau="\033[32m"
+end="\033[0m"
+
+echo ""
+echo -e "${hijau} █████╗ ██╗   ██╗████████╗ ██████╗     ██████╗ ███╗   ██╗███████╗${end}"
+echo -e "${hijau}██╔══██╗██║   ██║╚══██╔══╝██╔═══██╗    ██╔══██╗████╗  ██║██╔════╝${end}"
+echo -e "${hijau}███████║██║   ██║   ██║   ██║   ██║    ██║  ██║██╔██╗ ██║███████${end}"
+echo -e "${hijau}██╔══██║██║   ██║   ██║   ██║   ██║    ██║  ██║██║╚██╗██║╚════██║${end}"
+echo -e "${hijau}██║  ██║╚██████╔╝   ██║   ╚██████╔╝    ██████╔╝██║ ╚████║███████║${end}"
+echo -e "${hijau}╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝     ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ${end}"
+echo ""
 
 echo "cheking bind9 service"
 #cheking bind9.service
