@@ -8,6 +8,7 @@ Konfigurasi Zona:   Masukkan domain & IP, skrip akan mengkonfigurasi zona.
 Restart Otomatis:   Bind9 akan direstart setelah konfigurasi selesai.
 ## 🛠️Cara Instalasi & Penggunaan
 Akses Root: Pastikan Anda memiliki hak akses root.
+
 clone : 
 ```bash
 git clone https://github.com/MbahPinguinSakti/DndServerAutomation.git && cd ~/DndServerAutomation
