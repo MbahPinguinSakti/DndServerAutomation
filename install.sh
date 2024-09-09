@@ -118,17 +118,16 @@ sleep 1
 
 new_soa="@       IN      SOA     ${domain}. root.${domain}. ("
 
-cp /etc/bind/db.127 ${reverse}_temp &&
+cp /etc/bind/db.127 ${reverse}_temp && \
     sed -i "s/localhost/${domain}/g" ${reverse}_temp &&
     mv ${reverse}_temp ${reverse}
 
 echo "${reverse} zone has been sucess fully configured"
 
-cp /etc/bind/named.conf.default-zones /etc/bind/named.conf.default-zones_temp &&
-    sed -i "s/localhost/${domain}/g" /etc/bind/named.conf.default-zones_temp &&
-    sed -i "s/local/db.${domain}/g" /etc/bind/named.conf.default-zones_temp &&
-    sed -i "s/127/${reversed_ip}/g" /etc/bind/named.conf.default-zones_temp &&
-    sed -i "s/db.127db.${reverse}/g" /etc/bind/named.conf.default-zones_temp &&
-    mv /etc/bind/named.conf.default-zones_temp /etc/bind/named.conf.default-zones
+cp /etc/bind/named.conf.default-zones /etc/bind/named.conf.default-zones_temp &&  
+    sed -i "s/localhost/${domain}/g" /etc/bind/named.conf.default-zones_temp && \
+    sed -i "s/local/db.${domain}/g" /etc/bind/named.conf.default-zones_temp && \
+    sed -i "s/127/${reversed_ip}/g" /etc/bind/named.conf.default-zones_temp && \
+    sed -i "s/db.127db.${reverse}/g" /etc/bind/named.conf.default-zones_temp && \
+    mv /etc/bind/named.conf.default-zones_temp /etc/bind/named.conf.default-zones \
 
-# Fungsi untuk membalikkan urutan IP dan menghapus oktet keempat
