@@ -127,7 +127,7 @@ sed -i "s/localhost/${domain}/g" "${named}_temp"
         echo "sed done "
     fi
 
-sed -i "s/127/${reversed_ip}/g" "${named}_temp"
+sed -i "s/127.in-addr.arpa/${reversed_ip}.in-addr.arpa/g" "${named}_temp"
     if [ $? -ne 0 ]; then
         echo "error di sed-1"
     else
